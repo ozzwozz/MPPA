@@ -6,10 +6,6 @@
 /// @brief LED Driver Class
 class LED
 {
-    private:
-        /// @param m_pin member variable for the pin number
-        uint m_pin;
-
     public:
         /// @brief LED Class Constructor
         /// @param pin GPIO pin to be driven in this object
@@ -26,4 +22,8 @@ class LED
 
         /// @brief thread that flashes the LED when transmitting
         void flashing_thread();
+
+    private:
+        /// @param m_pin member variable for the pin number
+        uint m_pin;
 };

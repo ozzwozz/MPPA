@@ -28,6 +28,7 @@ class I2CDevice
         /// @param len length of the data to be sent
         /// @return success is true
         bool write(const uint8_t *data, const size_t len);
+        
     private:
         /// @param m_i2c member i2c instance 
         i2c_inst_t *m_i2c;
