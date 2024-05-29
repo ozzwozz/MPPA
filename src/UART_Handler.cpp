@@ -4,7 +4,8 @@
 
 UART_Handler::UART_Handler(uart_inst_t *uart, uint baud_rate, uint rx_pin, uint tx_pin
         , PSU &psu_1, PSU &psu_2, PSU &psu_3, PSU &psu_4, PSU &psu_5
-        , M24M02 &m24m02, ADC &adc, DS1682 &ds1682, AD7490BCPZ &AD7490BCPZ)
+        , M24M02 &m24m02, ADC &adc, DS1682 &ds1682, INA3221A &ina3221_1, INA3221A &ina3221_2
+        , ADS8166IRHBT &ads8166IRHBT)
             : m_uart(uart)
             , m_m24m02(m24m02)
             , m_adc(adc)
@@ -14,7 +15,9 @@ UART_Handler::UART_Handler(uart_inst_t *uart, uint baud_rate, uint rx_pin, uint 
             , m_psu_4(psu_4)
             , m_psu_5(psu_5)
             , m_ds1682(ds1682)
-            , m_ads8166(AD7490BCPZ)
+            , m_ina3221_1(ina3221_1)
+            , m_ina3221_2(ina3221_2)
+            , m_ads8166(ads8166IRHBT)
 {
     gpio_set_function(rx_pin, GPIO_FUNC_UART);
     gpio_set_function(tx_pin, GPIO_FUNC_UART);
@@ -56,7 +59,7 @@ size_t UART_Handler::read(char *data, size_t len)
     return bytes_read > 0;
 }
 
-int UART_Handler::available()
+bool UART_Handler::available()
 {
     return uart_is_readable(m_uart) ? 1 : 0;
 }
@@ -94,22 +97,22 @@ void UART_Handler::decode_message()
     printf("message: %s\n", data);
 
     uint8_t header = data[0];
-    uint8_t band_mask = data[1];
 
     std::vector<char> response;
 
+    // Header is placed into the response message
     response[0] = header;
 
     switch (header)
     {
         case message_headers::SET_PSU:
-            set_psu(response, data);
+            set_psu(data);
             break;
         case message_headers::GET_PSU:
-            get_psu(response, band_mask);
+            get_psu(response, data[1]);
             break;
         case message_headers::SET_PA_ENABLE:
-            set_pa_enable(response, data);
+            set_pa_enable(data);
             break;
         case message_headers::GET_PA_ENABLE:
             get_pa_enable(response);
@@ -151,7 +154,7 @@ size_t UART_Handler::send_message()
     return bytes_sent > 0;
 }
 
-void UART_Handler::set_psu(std::vector<char>& response, char* data)
+void UART_Handler::set_psu(char* data)
 {
     uint8_t band_mask = data[2];
 
@@ -190,7 +193,7 @@ void UART_Handler::get_psu(std::vector<char>& response, uint8_t band_mask)
     response[1] = psu_status;
 }
 
-void UART_Handler::set_pa_enable(std::vector<char>& response, char* data)
+void UART_Handler::set_pa_enable(char* data)
 {
     uint8_t band_mask = data[2];
 
@@ -236,6 +239,7 @@ void UART_Handler::set_characterisation(char* data)
     uint8_t band_mask = data[2];
 }
 
+/// TODO: Issue #3- Implement undefined behaviour
 void UART_Handler::get_characterisation(std::vector<char>& response)
 {
     // unknown return
@@ -261,10 +265,7 @@ void UART_Handler::get_hardware_numbers(std::vector<char>& response)
     uint32_t device_id;
 
     // ETR Hardware Number
-    if (!m_ds1682.getUniqueID(device_id))
-    {
-        write("Unable to retrieve the hardware numbers.");
-    }
+    response[1] = m_ds1682.getUniqueID(device_id);
 
     // EEPROM (?)
 }

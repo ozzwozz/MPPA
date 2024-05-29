@@ -10,14 +10,12 @@ ADC::~ADC()
 {
 }
 
-void ADC::read_P5V0_as_V(float &voltage)
+void ADC::enable_13V()
 {
-    adc_select_input(P5V0_pin);
-    voltage = (3.3 * adc_read()) / (1 << 12);
+    gpio_put(supply_13V_pin, 1);
 }
 
-void ADC::read_P3V3_as_V(float &voltage)
+void ADC::disable_13V()
 {
-    adc_select_input(P5V0_pin);
-    voltage = (3.3 * adc_read()) / (1 << 12);
+    gpio_put(supply_13V_pin, 0);
 }
