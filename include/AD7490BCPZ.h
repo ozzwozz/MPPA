@@ -4,7 +4,7 @@
 #include "SPIDevice.h"
 
 /// @class AD7490BCPZ
-/// @brief AD7490BCPZ Driver for being used for temperature sensing
+/// @brief AD7490BCPZ Driver for 16 channel 12 bit ADC
 class AD7490BCPZ : public SPIDevice
 {
     union ad7490_cmd_value
@@ -24,9 +24,7 @@ class AD7490BCPZ : public SPIDevice
         } B;            ///< Bit field accessor
         uint16_t I;     ///< Integer accessor
     };
-    
-    private:
-        
+
     public:
         /// @brief AD7490BCPZ Class Constructor
         /// @param spi_inst spi instance

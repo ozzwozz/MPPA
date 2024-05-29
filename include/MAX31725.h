@@ -3,8 +3,8 @@
 #include "I2CDevice.h"
 
 
-/// @class MAX31725 - Local Temperature Sensor Driver
-/// @brief Driver for the MAX31725
+/// @class MAX31725
+/// @brief Driver for the MAX31725 - Local Temperature Sensor Driver
 class MAX31725 : public I2CDevice
 {
     public:

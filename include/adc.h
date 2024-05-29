@@ -26,6 +26,7 @@ class ADC
         const uint PA_PGOOD_13V_pin = 1;
 
         /// @brief enable the 13V supply line
+        /// @param voltage get the voltage by reference
         void read_P5V0_as_V(float &voltage);
 
         /// @brief Measure the 3v3 line voltage

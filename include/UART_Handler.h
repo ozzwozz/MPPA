@@ -55,23 +55,23 @@ class UART_Handler
         ~UART_Handler();
 
         /// @brief Write to UART_Handler
-        /// @param data 
+        /// @param data data t write to UART
         void write(const char *data);
 
         /// @brief Write to UART_Handler
-        /// @param data 
-        /// @param len 
+        /// @param data data to write to UART
+        /// @param len length of data to write to UART
         void write(const char *data, size_t len);
 
         /// @brief Read from UART_Handler
-        /// @param data 
-        /// @param len 
-        /// @return size_t 
+        /// @param data data object to store data from UART
+        /// @param len length of the data expected
+        /// @return size_t size of the data read
         size_t read(char *data, size_t len);
 
         /// @brief Check if UART_Handler is available to interact with
-        /// @return int 
-        int available();
+        /// @return true if available
+        bool available();
 
         /// @brief flush the Rx buffer
         void flush_rx();
@@ -119,29 +119,27 @@ class UART_Handler
         std::queue<std::vector<char>> tx_buffer_;
 
         /// @brief Interrupt handler for when data is recieved
-        /// @param context 
+        /// @param context pointer to the calling instance
         static void uart_irq_handler(void *context);
 
         /// @brief Parse the received message
         void decode_message();
 
         /// @brief Set the psu power status
-        /// @param response  
         /// @param data 
-        void set_psu(std::vector<char>& response, char* data);
+        void set_psu(char* data);
 
         /// @brief Get the current psu power status
-        /// @param response 
-        /// @param band_mask
+        /// @param response response passed as an object to be populated in function
+        /// @param band_mask bit mask for the bands to get information about
         void get_psu(std::vector<char>& response, uint8_t band_mask);
 
         /// @brief Set the bands for which PA is enabled/disabled
-        /// @param response 
         /// @param data  
-        void set_pa_enable(std::vector<char>& response, char* data);
+        void set_pa_enable(char* data);
         
-        /// @brief Get te bands on which PA is enabled
-        /// @param response 
+        /// @brief Get the bands on which PA is enabled
+        /// @param response response passed as an object to be populated in function
         void get_pa_enable(std::vector<char>& response);
 
         /// @brief Set the characterisation table on the EEPROM 
@@ -149,18 +147,18 @@ class UART_Handler
         void set_characterisation(char* data);
 
         /// @brief Get the current characterisation table on the EEPROM
-        /// @param response 
+        /// @param response response passed as an object to be populated in function
         void get_characterisation(std::vector<char>& response);
 
         /// @brief A list of the PA stage bits
-        /// @param response 
+        /// @param response response passed as an object to be populated in function
         void get_bits(std::vector<char>& response);
 
         /// @brief A list of the PA stage hardware numbers
-        /// @param response 
+        /// @param response response passed as an object to be populated in function
         void get_hardware_numbers(std::vector<char>& response);
 
         /// @brief A list of the PA stage software numbers
-        /// @param response 
+        /// @param response response passed as an object to be populated in function
         void get_software_numbers(std::vector<char>& response);
 };

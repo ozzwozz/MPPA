@@ -4,7 +4,8 @@
  
 /// @class DS1682
 /// @brief Driver for the DS1682 - Total-Elapsed-Time Recorder with Alarm
-class DS1682 : public I2CDevice {
+class DS1682 : public I2CDevice
+{
     public:
         /// @brief Construct a new DS1682 object
         /// @param i2c_inst i2c instance

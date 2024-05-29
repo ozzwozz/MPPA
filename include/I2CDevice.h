@@ -21,13 +21,13 @@ class I2CDevice
         /// @param data pointer to address of data to be sent
         /// @param len length of the data to be sent
         /// @return success is true
-        bool read(uint8_t *data, size_t len);
+        bool read(uint8_t *data, const size_t len);
 
         /// @brief Write given data to the target device
         /// @param data pointer to address of data to be sent
         /// @param len length of the data to be sent
         /// @return success is true
-        bool write(const uint8_t *data, size_t len);
+        bool write(const uint8_t *data, const size_t len);
     private:
         /// @param m_i2c member i2c instance 
         i2c_inst_t *m_i2c;
