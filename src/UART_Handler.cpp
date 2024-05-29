@@ -82,6 +82,7 @@ void UART_Handler::uart_irq_handler(void *context)
     }
 }
 
+// TODO: Issue #4 - Finish implementation of decoding and responding to UART messages
 void UART_Handler::decode_message()
 {
     char data[128]; // Allocate memory for the data buffer
@@ -135,6 +136,7 @@ void UART_Handler::decode_message()
     tx_buffer_.push(response);
 }
 
+// TODO: Issue #4 - Finish Implementation of decoding and responding to UART messages
 size_t UART_Handler::send_message()
 {
     size_t bytes_sent = 0;
