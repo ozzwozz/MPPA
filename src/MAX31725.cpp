@@ -38,5 +38,5 @@ bool MAX31725::read_temperature(float &temperature)
 
 void MAX31725::over_temp_irq_handler(void *context)
 {
-
+    // Implement flag set or add message to the UART Tx buffer
 }
