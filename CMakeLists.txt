@@ -46,7 +46,7 @@ if (PICO_SDK_VERSION_STRING VERSION_LESS "1.4.0")
   message(FATAL_ERROR "Raspberry Pi Pico SDK version 1.4.0 (or later) required. Your version is ${PICO_SDK_VERSION_STRING}")
 endif()
 
-project(pa_controller C CXX ASM)
+project(m_hpssm_controller C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
@@ -74,7 +74,7 @@ set(SOURCE_FILES
     src/LED.cpp
     src/MAX31725.cpp
     src/M24M02.cpp
-    src/pa_controller.cpp
+    src/m_hpssm_controller.cpp
     src/PSU.cpp
     src/SPIDevice.cpp
     src/UART_Handler.cpp
@@ -87,29 +87,29 @@ include_directories(include)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES})
 
-pico_set_program_name(pa_controller "pa_controller")
-pico_set_program_version(pa_controller "0.1")
+pico_set_program_name(m_hpssm_controller "m_hpssm_controller")
+pico_set_program_version(m_hpssm_controller "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(pa_controller 1)
-pico_enable_stdio_usb(pa_controller 0)
+pico_enable_stdio_uart(m_hpssm_controller 1)
+pico_enable_stdio_usb(m_hpssm_controller 0)
 
 # Add the standard library to the build
-target_link_libraries(pa_controller
+target_link_libraries(m_hpssm_controller
         pico_stdlib)
 
 # Add the standard include files to the build
-target_include_directories(pa_controller PRIVATE
+target_include_directories(m_hpssm_controller PRIVATE
   ${CMAKE_CURRENT_LIST_DIR}
   ${CMAKE_CURRENT_LIST_DIR}/.. # for our common lwipopts or any other standard includes, if required
 )
 
 # Add any user requested libraries
-target_link_libraries(pa_controller 
+target_link_libraries(m_hpssm_controller 
         hardware_i2c
         hardware_watchdog
         hardware_adc
         hardware_spi
         )
 
-pico_add_extra_outputs(pa_controller)
+pico_add_extra_outputs(m_hpssm_controller)
