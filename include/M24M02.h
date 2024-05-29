@@ -3,8 +3,8 @@
 #include "I2CDevice.h"
 
 
-/// @class M24M02 EEPROM Device Driver
-/// @brief Driver for the M24M02
+/// @class M24M02
+/// @brief Driver for the M24M02 - EEPROM Device Driver
 class M24M02 : public I2CDevice
 {
     public:
@@ -21,12 +21,12 @@ class M24M02 : public I2CDevice
         /// @param data object to store the data in
         /// @param len length of the data to be sent and received
         /// @return success is true
-        bool read(const uint32_t address, uint8_t *data, size_t len);
+        bool read(const uint32_t address, uint8_t *data, const size_t len);
         
         /// @brief Write to the EEPROM Device
         /// @param address address to be written to 
         /// @param data data to write to the device
         /// @param len length of the data to be sent
         /// @return success is true 
-        bool write(const uint32_t address, const uint8_t *data, size_t len);
+        bool write(const uint32_t address, const uint8_t *data, const size_t len);
 };

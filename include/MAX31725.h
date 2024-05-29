@@ -7,10 +7,6 @@
 /// @brief Driver for the MAX31725
 class MAX31725 : public I2CDevice
 {
-    private:
-        uint8_t cmd_read_temperature = 0x00;
-        uint m_overtemp_pin = 14;
-
     public:
         /// @brief Construct a new MAX31725 object
         /// @param i2c i2c instance
@@ -27,4 +23,12 @@ class MAX31725 : public I2CDevice
 
         /// @brief Handler for the over temp interrupt
         static void over_temp_irq_handler(void *context);
+
+    private:
+        /// @param cmd_read_temperature command address for reading the temperature
+        const uint8_t cmd_read_temperature = 0x00;
+
+        /// @param m_overtemp_pin interrupt pin for the overtemp trigger
+        const uint m_overtemp_pin = 14;
+
 };

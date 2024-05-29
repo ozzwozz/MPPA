@@ -88,29 +88,26 @@ class UART_Handler
         uart_inst_t *m_uart;
 
         /// @param m_m24m02 M24M02 object
-        M24M02 m_m24m02;
+        M24M02 &m_m24m02;
         /// @param m_ds1682 DS1682 object
-        DS1682 m_ds1682;
+        DS1682 &m_ds1682;
 
         /// @param m_ads8166 AD7490BCPZ object
-        AD7490BCPZ m_ads8166;
+        AD7490BCPZ &m_ads8166;
 
         /// @param m_psu_1 PSU object
-        PSU m_psu_1;
+        PSU &m_psu_1;
         /// @param m_psu_2 PSU object
-        PSU m_psu_2;
+        PSU &m_psu_2;
         /// @param m_psu_3 PSU object
-        PSU m_psu_3;
+        PSU &m_psu_3;
         /// @param m_psu_4 PSU object
-        PSU m_psu_4;
+        PSU &m_psu_4;
         /// @param m_psu_5 PSU object
-        PSU m_psu_5;
+        PSU &m_psu_5;
 
         /// @param m_adc ADC object
-        ADC m_adc;
-
-        /// @param m_ext_trig_pin External trigger pin
-        uint m_ext_trig_pin;
+        ADC &m_adc;
         
         /// @param m_rx_pin rx pin
         uint m_rx_pin;
@@ -120,10 +117,6 @@ class UART_Handler
         std::queue<char> rx_buffer_;
         /// @param tx_buffer_ tx buffer queue
         std::queue<std::vector<char>> tx_buffer_;
-
-        /// @brief Handler for the EXT_TRIG/GPIO15 interrupt
-        /// @param context 
-        static void ext_trig_irq_handler(void *context);
 
         /// @brief Interrupt handler for when data is recieved
         /// @param context 
@@ -159,15 +152,15 @@ class UART_Handler
         /// @param response 
         void get_characterisation(std::vector<char>& response);
 
-        /// @brief A list of the attenuator stage bits
+        /// @brief A list of the PA stage bits
         /// @param response 
         void get_bits(std::vector<char>& response);
 
-        /// @brief A list of the attenuator stage harder numbers
+        /// @brief A list of the PA stage hardware numbers
         /// @param response 
         void get_hardware_numbers(std::vector<char>& response);
 
-        /// @brief A list of the attenuator stage software numbers
+        /// @brief A list of the PA stage software numbers
         /// @param response 
         void get_software_numbers(std::vector<char>& response);
 };
