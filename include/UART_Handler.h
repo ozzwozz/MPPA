@@ -118,7 +118,7 @@ class UART_Handler
         /// @param tx_buffer_ tx buffer queue
         std::queue<std::vector<char>> tx_buffer_;
 
-        /// @brief Interrupt handler for when data is recieved
+        /// @brief Interrupt handler for when data is received
         /// @param context pointer to the calling instance
         static void uart_irq_handler(void *context);
 
