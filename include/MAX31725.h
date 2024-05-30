@@ -30,15 +30,15 @@ class MAX31725 : public I2CDevice
         static void over_temp_irq_handler(void *context);
 
     private:
-        /// @param cmd_read_temperature command address for reading the temperature
-        const uint8_t cmd_read_temperature = 0x00;
+        /// @param m_cmd_read_temperature command address for reading the temperature
+        static constexpr uint8_t m_cmd_read_temperature = 0x00;
 
-        /// @param cmd_set_temp_limit command address for setting the over_temp limit
-        const uint8_t cmd_set_temp_limit = 0x03;
+        /// @param m_cmd_set_temp_limit command address for setting the over_temp limit
+        static constexpr uint8_t m_cmd_set_temp_limit = 0x03;
 
         /// @param m_overtemp_pin interrupt pin for the overtemp trigger
         const uint m_overtemp_pin = 14;
 
         /// @param m_temperature_limit_C over_temp trigger temperrature in Celsius
-        const float m_temperature_limit_C;
+        const float m_temperature_limit_C = 85;
 };
