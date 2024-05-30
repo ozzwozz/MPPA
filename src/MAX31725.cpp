@@ -11,7 +11,6 @@ MAX31725::MAX31725(i2c_inst_t *i2c, uint8_t address) : I2CDevice(i2c, address)
     
     // Set up interrupt for GPIO 15
     irq_set_exclusive_handler(15, (irq_handler_t)over_temp_irq_handler);
-
 }
 
 MAX31725::~MAX31725()
@@ -20,8 +19,9 @@ MAX31725::~MAX31725()
 
 bool MAX31725::set_over_temp_limit()
 {
-    uint8_t tx_data[2] {cmd_set_temp_limit, m_temperature_limit_C};
+    uint8_t tx_data[2] {m_cmd_set_temp_limit, m_temperature_limit_C};
 
+    // send set temperature limit commands
     if (!write(tx_data, 1))
     {
         return false;
@@ -34,18 +34,21 @@ bool MAX31725::read_temperature(float &temperature)
 {
     uint8_t rx_data[2];
 
-    if (!write(&cmd_read_temperature, 1))
+    // Send read temperature command
+    if (!write(&m_cmd_read_temperature, 1))
     {
         return false;
     }
 
+    //read response
     if (!read(rx_data, 2))
     {
         return false;
-    }
+    }   
 
-    int16_t temp_data = (rx_data[0] << 8) | rx_data[1];
-    temperature = (temp_data / 256.0);
+    // 16 bit temperature
+    int16_t temp_data = (rx_data[0] << 8);
+    temperature = temp_data + (rx_data[1] / 256.0);
 
     return true;
 }

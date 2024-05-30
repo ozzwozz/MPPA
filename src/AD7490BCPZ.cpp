@@ -12,8 +12,8 @@ AD7490BCPZ::~AD7490BCPZ()
 
 uint16_t AD7490BCPZ::read(const uint8_t channel)
 {
-    // Bitwise OR to set lower 4 bits to the channel number
-    uint8_t tx_data[2] {0x80 | (channel << 4), 0x00};
+    // Bitwise OR 12 bits to the channel number highest bit is 0 to read
+    uint8_t tx_data[2] {0x00 | (channel << 4), 0x00};
     uint8_t rx_data[2];
 
     exchange(tx_data, rx_data, 2);

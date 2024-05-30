@@ -98,6 +98,7 @@ void UART_Handler::decode_message()
 
     std::vector<char> response;
 
+    // Header is placed into the response message
     response[0] = header;
 
     switch (header)
