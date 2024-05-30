@@ -51,7 +51,7 @@ project(m_hpssm_controller C CXX ASM)
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
-# Add all your header files here
+# Header files here
 set(HEADER_FILES
     include/adc.h
     include/AD7490BCPZ.h
@@ -65,7 +65,7 @@ set(HEADER_FILES
     include/UART_Handler.h
 )
 
-# Add all your source files here
+# Source files here
 set(SOURCE_FILES
     src/adc.cpp
     src/AD7490BCPZ.cpp
@@ -100,10 +100,10 @@ target_link_libraries(m_hpssm_controller
 # Add the standard include files to the build
 target_include_directories(m_hpssm_controller PRIVATE
   ${CMAKE_CURRENT_LIST_DIR}
-  ${CMAKE_CURRENT_LIST_DIR}/.. # for our common lwipopts or any other standard includes, if required
+  ${CMAKE_CURRENT_LIST_DIR}/.. # common lwipopts or any other standard includes, if required
 )
 
-# Add any user requested libraries
+# Requested libraries
 target_link_libraries(m_hpssm_controller 
         hardware_i2c
         hardware_watchdog
